@@ -13,4 +13,4 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./client/build/:/usr/share/nginx/html/
+      - ./client/dist/:/usr/share/nginx/html/

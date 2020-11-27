@@ -1,0 +1,20 @@
+.custom-control {
+  label {
+    cursor: pointer;
+    margin: 0.25rem 0;
+    &:hover {
+      &:before {
+        background-color: $gray-200;
+      }
+    }
+  }
+  .custom-control-input:disabled:checked ~ .custom-control-label::before {
+    background-color: $gray-200;
+    border-color: $gray-300;
+  }
+  .custom-control-input:disabled ~ .custom-control-label {
+    color: $gray-500;
+    cursor: not-allowed;
+  }
+}
+
