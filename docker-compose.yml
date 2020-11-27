@@ -5,8 +5,12 @@ services:
     build: ./server/
     ports:
       - "8000:8000"
+    volumes:
+      - ./server/:/usr/src/app/
   client:
     container_name: mern-client
-    build: ./client
+    build: ./client/
     ports:
       - "80:80"
+    volumes:
+      - ./client/build/:/usr/share/nginx/html/
