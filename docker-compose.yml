@@ -1,0 +1,12 @@
+version: "3.5"
+services:
+  server:
+    container_name: mern-server
+    build: ./server/
+    ports:
+      - "8000:8000"
+  client:
+    container_name: mern-client
+    build: ./client
+    ports:
+      - "80:80"
