@@ -8,6 +8,9 @@ require('dotenv').config();
 
 const app = express();
 
+/* import Routes */
+const userRoute = require('./routes/user');
+
 /* connect db */
 mongoose
   .connect(process.env.DATABASE, {
@@ -22,24 +25,17 @@ mongoose
 /* app middleware */
 app.use(bodyParser.json());
 app.use(morgan('dev'));
-
-if (process.env.NODE_ENV === 'development') {
-  app.use(
-    cors({
-      origin: process.env.CLIENT_URI
-    })
-  );
-}
+app.use(
+  cors({
+    origin: process.env.CLIENT_URI
+  })
+);
 
 /* middleware */
-app.get('/api', (req, res) => {
-  res.json({
-    message: 'Hello guy!!!'
-  });
-});
+app.use('/api/v1', userRoute);
 
 const port = process.env.PORT || '8000';
 
 app.listen(port, () => {
-  console.log(`API is running on port: ${port}`);
+  console.log(`API is running on port: ${port} (${process.env.NODE_ENV})`);
 });
