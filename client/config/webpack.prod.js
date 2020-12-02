@@ -36,6 +36,14 @@ const prod = merge(common, {
     hints: false,
     maxEntrypointSize: 512000,
     maxAssetSize: 512000
+  },
+  externals: {
+    config: JSON.stringify({
+      apiUrl: 'http://localhost:8081',
+      facebookAppID: '382176933019545',
+      googleClientID:
+        '742074347686-4vtsvq9lvtnhgc64nfmoll12e0ila5gp.apps.googleusercontent.com'
+    })
   }
 })
 
