@@ -3,13 +3,15 @@ services:
   server:
     container_name: mern-server
     build: ./server/
+    restart: always
     ports:
-      - "8000:8000"
+      - "8081:8000"
     volumes:
       - ./server/:/usr/src/app/
   client:
     container_name: mern-client
     build: ./client/
+    restart: always
     ports:
       - "80:80"
     volumes:
