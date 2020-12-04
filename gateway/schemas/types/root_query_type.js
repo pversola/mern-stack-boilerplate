@@ -1,15 +1,18 @@
 const graphql = require('graphql');
-const { GraphQLObjectType } = graphql;
+const axios = require('axios');
+const { GraphQLObjectType, GraphQLList } = graphql;
 
 const UserType = require('../types/UserType');
 
 const RootQueryType = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    user: {
-      type: UserType,
-      resolve(parentValue, args, req) {
-        return req.user;
+    users: {
+      type: new GraphQLList(UserType),
+      resolve() {
+        return axios
+          .get(`${process.env.API_URI}/api/v1/users`)
+          .then((resp) => resp.data);
       }
     }
   }
