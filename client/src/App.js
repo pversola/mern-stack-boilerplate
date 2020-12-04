@@ -1,38 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import config from 'config'
 
+import { userAction } from './actions'
+
+import UserList from './components/UserList'
+// const App = () => {
+//   const dispatch = useDispatch()
+//   const users = useSelector((state) => state.users)
+
+//   useEffect(() => {
+//     dispatch(userAction.getLists())
+//   }, [])
+
+//   return (
+//     <div className="container">
+//       {users.items &&
+//         users.items.map((item, index) => (
+//           <div key={item._id}>{item.email}</div>
+//         ))}
+//     </div>
+//   )
+// }
+
 const App = () => {
-  const [data, setMessage] = useState({
-    message: ''
-  })
-
-  useEffect(() => {
-    loadData()
-  }, [])
-
-  const loadData = () => {
-    console.log(`${config.apiUrl}/api`)
-
-    axios({
-      method: 'GET',
-      url: `${config.apiUrl}/api`
-    })
-      .then((response) => {
-        console.log(`RESPONSE: ${response.data.message}`)
-        setMessage({
-          message: response.data.message
-        })
-      })
-      .catch((error) => {
-        console.log(`ERROR: ${response}`)
-      })
-  }
-
-  const { message } = data
   return (
-    <div>
-      <h1>{`${message}`}</h1>
+    <div className="container">
+      <UserList />
     </div>
   )
 }

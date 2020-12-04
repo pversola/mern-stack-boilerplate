@@ -39,7 +39,7 @@ const prod = merge(common, {
   },
   externals: {
     config: JSON.stringify({
-      apiUrl: 'http://localhost:8081',
+      apiUrl: 'http://localhost:8082',
       facebookAppID: '382176933019545',
       googleClientID:
         '742074347686-4vtsvq9lvtnhgc64nfmoll12e0ila5gp.apps.googleusercontent.com'
