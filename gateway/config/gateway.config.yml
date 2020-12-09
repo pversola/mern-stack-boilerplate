@@ -1,10 +1,11 @@
 http:
-  port: 8089
-admin:
-  port: 9876
-  host: localhost
+  port: 8080
+# admin:
+#   port: 9876
+#   host: localhost
 apiEndpoints:
   api:
+    methods: 'GET'
     host: localhost
     paths: '/ip'
 serviceEndpoints:
@@ -19,7 +20,6 @@ policies:
   - oauth2
   - proxy
   - rate-limit
-  - rewrite
 pipelines:
   default:
     apiEndpoints:
