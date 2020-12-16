@@ -6,11 +6,8 @@ services:
     restart: always
     ports:
       - "8081:8000"
-    environment:
-      - NODE_ENV=production
-      - PORT=8000
-      - CLIENT_URI=http://localhost
-      - DATABASE='mongodb://dev:mflv[1234@192.168.30.160:27017/mern-auth?authSource=mern-auth&w=1'
+    env_file:
+      - ./environments/.env_server_prod
     volumes:
       - ./server/:/usr/src/app/
   gateway:
@@ -18,12 +15,7 @@ services:
     build: ./gateway/
     restart: always
     ports:
-      - "8082:8000"
-    environment:
-      - NODE_ENV=production
-      - PORT=8000
-      - CLIENT_URI=http://localhost
-      - API_URI=http://192.168.30.160:8081
+      - "8082:8080"
     volumes:
       - ./gateway/:/usr/src/app/
   client:
