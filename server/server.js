@@ -10,6 +10,7 @@ const app = express();
 
 /* import Routes */
 const userRoute = require('./routes/user');
+const authRoute = require('./routes/auth');
 
 /* connect db */
 mongoose
@@ -33,6 +34,7 @@ app.use(
 
 /* middleware */
 app.use('/api/v1', userRoute);
+app.use('/api/v1', authRoute);
 
 const port = process.env.PORT || '8000';
 
