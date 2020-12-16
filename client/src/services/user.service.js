@@ -1,27 +1,11 @@
 import axios from 'axios'
 import config from 'config'
-import { useQuery, gql, useApolloClient } from '@apollo/client'
-
-const query = gql`
-  query {
-    users {
-      _id
-      name
-      email
-      role
-    }
-  }
-`
 
 const getLists = () => {
-  const client = useApolloClient()
-  // const { data } = useQuery(query)
-  // return axios({
-  //   method: 'GET',
-  //   url: `${config.apiUrl}/api/v1/users`
-  // }).then(handleResponse)
-
-  client.query(query).then(handleResponse)
+  return axios({
+    method: 'GET',
+    url: `${config.apiUrl}/api/v1/users`
+  }).then(handleResponse)
 }
 
 const handleResponse = (response) => {
@@ -35,6 +19,16 @@ const handleResponse = (response) => {
   return data
 }
 
+const signIn = (data) => {
+  const { email, password } = data
+  return axios.post(`${config.apiUrl}/api/v1/signin`, data).then(handleResponse)
+}
+
+const signup = (data) => {
+  return axios.post(`${config.apiUrl}/api/v1/signup`, data).then(handleResponse)
+}
+
 export const userService = {
-  getLists
+  getLists,
+  signIn
 }

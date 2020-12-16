@@ -1,33 +1,40 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import Loader from 'react-loader-spinner'
-import { useQuery, gql } from '@apollo/client'
+import axios from 'axios'
+import config from 'config'
+
+import { userAction, authAction } from '../actions'
+
+// const $ = require('jquery');
+// $.DataTable = require('datatables.net');
 
 const UserList = () => {
-  const { loading, error, data } = useQuery(QUERY)
+  const dispatch = useDispatch()
+  const users = useSelector((state) => state.user)
+  const auth = useSelector((state) => state.auth)
 
-  // if (loading) return `Loading...`
-  // if (error) return `Error ${error.message}`
+  useEffect(() => {
+    //dispatch(userAction.getLists())
+    dispatch(
+      authAction.signin({
+        email: 'pversola@gmail.com',
+        password: 'mflv[1234'
+      })
+    )
+  }, [])
 
   return (
     <div>
-      {loading && (
+      {/* {users && users.isLoading && (
         <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
       )}
-      {!loading &&
-        data.users.map((item, index) => <div key={item._id}>{item.email}</div>)}
+      {users.items &&
+        users.items.map((item, index) => (
+          <div key={item._id}>{item.email}</div>
+        ))} */}
     </div>
   )
 }
-
-const QUERY = gql`
-  query {
-    users {
-      _id
-      name
-      email
-      role
-    }
-  }
-`
 
 export default UserList

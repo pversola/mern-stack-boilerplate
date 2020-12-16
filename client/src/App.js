@@ -1,34 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import axios from 'axios'
-import config from 'config'
+import React from 'react'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import { userAction } from './actions'
-
-import UserList from './components/UserList'
-// const App = () => {
-//   const dispatch = useDispatch()
-//   const users = useSelector((state) => state.users)
-
-//   useEffect(() => {
-//     dispatch(userAction.getLists())
-//   }, [])
-
-//   return (
-//     <div className="container">
-//       {users.items &&
-//         users.items.map((item, index) => (
-//           <div key={item._id}>{item.email}</div>
-//         ))}
-//     </div>
-//   )
-// }
+import Home from './pages/Home'
+import Signin from './pages/auth/Signin'
 
 const App = () => {
   return (
-    <div className="container">
-      <UserList />
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/" component={Home}></Route>
+        <Route path="/signin" component={Signin}></Route>
+      </Switch>
+    </Router>
   )
 }
 

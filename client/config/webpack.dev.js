@@ -18,7 +18,7 @@ const dev = merge(common, {
   plugins: [new webpack.HotModuleReplacementPlugin()],
   externals: {
     config: JSON.stringify({
-      apiUrl: 'http://localhost:8081',
+      apiUrl: 'http://localhost:8000',
       apiTrueUrl: 'https://monitor.true-etax.echanwanich.com/Core',
       facebookAppID: '382176933019545',
       googleClientID:

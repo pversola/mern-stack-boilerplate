@@ -1,7 +1,6 @@
-import { useEffect } from 'react'
 import { userConstant } from '../constants'
 
-const users = (state = {}, action) => {
+export const user = (state = {}, action) => {
   switch (action.type) {
     case userConstant.DATA_REQUEST:
       return {
@@ -9,7 +8,6 @@ const users = (state = {}, action) => {
         isLoading: true
       }
     case userConstant.DATA_SUCCESS:
-      console.log(action.payload)
       return {
         ...state,
         isLoading: false,
@@ -24,5 +22,3 @@ const users = (state = {}, action) => {
       return state
   }
 }
-
-export default users
