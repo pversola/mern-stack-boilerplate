@@ -1,5 +1,5 @@
 http:
-  port: 8080
+  port: 8001
 # admin:
 #   port: 9876
 #   host: localhost
@@ -8,9 +8,15 @@ apiEndpoints:
     methods: 'GET'
     host: localhost
     paths: '/ip'
+  backend:
+    methods: 'GET,PUT,POST,DELETE'
+    host: localhost
+    paths: '/api/v1/*'
 serviceEndpoints:
   httpbin:
     url: 'https://httpbin.org'
+  mernService:
+    url: 'http://localhost:8000'
 policies:
   - basic-auth
   - cors
@@ -21,7 +27,7 @@ policies:
   - proxy
   - rate-limit
 pipelines:
-  default:
+  bin:
     apiEndpoints:
       - api
     policies:
@@ -30,4 +36,12 @@ pipelines:
       - proxy:
           - action:
               serviceEndpoint: httpbin
+              changeOrigin: true
+  mern:
+    apiEndpoints:
+      - backend
+    policies:
+      - proxy:
+          - action:
+              serviceEndpoint: mernService
               changeOrigin: true
