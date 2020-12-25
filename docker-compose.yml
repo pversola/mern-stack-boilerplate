@@ -28,3 +28,18 @@ services:
       - NODE_ENV=production
     volumes:
       - ./client/dist/:/usr/share/nginx/html/
+  mongdb:
+    image: mongo:4.4.1
+    container_name: mongo
+    restart: always
+    environment:
+      - MONGO_INITDB_DATABASE=Test
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=mflv[1234
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - mongo-volume:/data/db
+    ports:
+      - "27017:27017"
+volumes:
+  mongo-volume:
