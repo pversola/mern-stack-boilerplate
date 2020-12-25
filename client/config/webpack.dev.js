@@ -15,7 +15,17 @@ const dev = merge(common, {
     hot: true,
     port: 3000
   },
-  plugins: [new webpack.HotModuleReplacementPlugin()],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"development"'
+      }
+    }),
+    new webpack.ProvidePlugin({
+      process: 'process/browser'
+    }),
+    new webpack.HotModuleReplacementPlugin()
+  ],
   externals: {
     config: JSON.stringify({
       apiUrl: 'http://localhost:8000',
