@@ -33,14 +33,14 @@ exports.signup = (req, res) => {
       .cipher(password, options)
       .then((value) => {
         const passwordEnc = value;
-        console.log(passwordEnc);
+
         const token = jwt.sign(
           { name, email, passwordEnc },
           process.env.JWT_ACCOUNT_ACTIVATION,
           { expiresIn: process.env.JWT_ACCOUNT_EXPIRE }
         );
 
-        console.log(token);
+        console.log(token.replace(/\./g, '/'));
 
         const emailData = {
           from: process.env.EMAIL_FROM,
@@ -48,7 +48,10 @@ exports.signup = (req, res) => {
           subject: `Account activation link`,
           html: `
                     <h1>Please use the following link to activate your account</h1>
-                    <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>
+                    <p>${process.env.CLIENT_URL}/auth/activate/${token.replace(
+            /\./g,
+            '/'
+          )}</p>
                     <hr />
                     <p>This email may contain sensetive information</p>
                     <p>${process.env.CLIENT_URL}</p>
@@ -57,15 +60,11 @@ exports.signup = (req, res) => {
 
         send(smtp, emailData)
           .then((info) => {
-            console.log(info);
-
             return res.json({
               message: `Email has been sent to ${email}. Follow the instruction to activate your account`
             });
           })
           .catch((err) => {
-            console.log(err);
-
             return res.status(400).json({
               error: err.message
             });
@@ -138,13 +137,13 @@ exports.signin = (req, res) => {
   User.findOne({ email }).exec((err, user) => {
     if (err || !user) {
       return res.status(400).json({
-        error: 'User with that email dose not exist. Please signup.'
+        error: 'Invalid Email or password'
       });
     }
 
     if (!user.authenticate(password)) {
       return res.status(400).json({
-        error: 'Email and password do not match'
+        error: 'Invalid Email or password'
       });
     }
 
@@ -237,9 +236,6 @@ exports.forgotPassword = (req, res) => {
           });
         });
     });
-  });
-  res.json({
-    message: 'FORGOT PASSWORD'
   });
 };
 

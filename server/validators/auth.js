@@ -1,7 +1,7 @@
 const { check } = require('express-validator');
 
 exports.signupValidator = [
-  check('name').not().isEmpty().withMessage('Firstname is require'),
+  check('name').not().isEmpty().withMessage('Name is require'),
   check('email').isEmail().withMessage('Must be a valid email address'),
   check('password')
     .isLength({ min: 8 })
